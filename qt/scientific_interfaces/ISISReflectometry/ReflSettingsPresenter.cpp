@@ -227,13 +227,13 @@ OptionsQMap ReflSettingsPresenter::getReductionOptions() const {
 
   if (m_view->experimentSettingsEnabled()) {
     addIfNotEmpty(options, "AnalysisMode", m_view->getAnalysisMode());
-    addIfNotEmpty(
-        options, "PolarizationAnalysis",
-        asAlgorithmPropertyBool(m_view->getPolarisationCorrections()));
     addIfNotEmpty(options, "FloodCorrection", m_view->getFloodCorrection());
     addIfNotEmpty(options, "FloodWorkspace", m_view->getFloodWorkspace());
     addIfNotEmpty(options, "StartOverlap", m_view->getStartOverlap());
     addIfNotEmpty(options, "EndOverlap", m_view->getEndOverlap());
+    auto const polarizationAnalysis =
+        asAlgorithmPropertyBool(m_view->getPolarisationCorrections());
+    options["PolarizationAnalysis"] = polarizationAnalysis;
 
     auto summationType = m_view->getSummationType();
     addIfNotEmpty(options, "SummationType", summationType);
