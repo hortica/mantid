@@ -13,6 +13,7 @@ import os
 from platform import system
 from shutil import copy2
 from six import u
+from sys import version_info
 
 import mantid.plots # noqa
 import Engineering.EnggUtils as Utils
@@ -424,6 +425,7 @@ def plot_calibration(workspace, name):
     @param name :: The name to be plotted, should be a variation of "Engg difc Zero Peaks Bank..."
 
     """
+    os.environ['MPLBACKEND'] = 'Agg'
     fig, ax = plt.subplots(subplot_kw={"projection": "mantid"})
     fig.canvas.set_window_title(name)
 
@@ -573,11 +575,19 @@ def focus_texture_mode(run_number, van_curves, van_int, focus_directory, focus_g
                                                                    params, time_period)
     banks = {}
     # read the csv file to work out the banks
-    with open(dg_file) as grouping_file:
-        group_reader = csv.reader(_decomment_csv(grouping_file), delimiter=',')
+    # ensure csv reading works on python 2 or 3
+    if version_info[0] >= 3:
+        with open(dg_file, 'r', newline='', encoding='utf-8') as grouping_file:
+            group_reader = csv.reader(_decomment_csv(grouping_file), delimiter=',')
 
-        for row in group_reader:
-            banks.update({row[0]: ','.join(row[1:])})
+            for row in group_reader:
+                banks.update({row[0]: ','.join(row[1:])})
+    else:
+        with open(dg_file, 'r') as grouping_file:
+            group_reader = csv.reader(_decomment_csv(grouping_file), delimiter=',')
+
+            for row in group_reader:
+                banks.update({row[0]: ','.join(row[1:])})
 
     # loop through the banks described in the csv, focusing and saing them out
     for bank in banks:
