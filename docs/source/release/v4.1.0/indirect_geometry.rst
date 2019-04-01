@@ -18,6 +18,8 @@ Improvements
 ############
 
 - :ref:`ModeratorTzeroLinear <algm-ModeratorTzeroLinear>` permits now passing parameter values as input properties.
+- :ref:`BASISPowderDiffraction <algm-BASISPowderDiffraction>` resolves between run with old and new DAS
+- :ref:`BASISReduction <algm-BASISReduction>` permits now flux normalization by proton charge and run duration.
 - :ref:`BASISCrystalDiffraction <algm-BASISCrystalDiffraction>` resolves between run with old and new DAS.
 
 
@@ -31,6 +33,7 @@ Improvements
 Bug Fixes
 #########
 - Fixed an error caused by loading a Sample into ConvFit which does not have a resolution parameter for the analyser.
+- Fixed a crash caused by changing the Preview Spectrum on Elwin after clicking Run.
 
 
 Data Reduction Interface
