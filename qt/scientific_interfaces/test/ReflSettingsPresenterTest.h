@@ -193,7 +193,7 @@ public:
         .WillOnce(Return(true));
 
     auto options = presenter.getReductionOptions();
-    TS_ASSERT_EQUALS(variantToString(options["PolarizationAnalysis"]), "1"); 
+    TS_ASSERT_EQUALS(variantToString(options["PolarizationAnalysis"]), "1");
 
     TS_ASSERT(Mock::VerifyAndClearExpectations(&mockView));
   }
