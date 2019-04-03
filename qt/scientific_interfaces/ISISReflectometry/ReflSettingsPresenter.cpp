@@ -102,6 +102,7 @@ void ReflSettingsPresenter::setInstrumentName(const std::string &instName) {
   m_currentInstrumentName = instName;
   bool enable = instName != "INTER" && instName != "SURF";
   m_view->setIsPolCorrEnabled(enable);
+  m_view->setPolarisationOptionsEnabled(enable);
 }
 
 OptionsQMap ReflSettingsPresenter::transmissionOptionsMap() const {

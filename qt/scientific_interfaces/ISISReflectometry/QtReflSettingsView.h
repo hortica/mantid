@@ -107,6 +107,8 @@ public slots:
   void requestExpDefaults() const;
   void requestInstDefaults() const;
   void summationTypeChanged(int reductionTypeIndex);
+  /// Sets enabled status for polarisation corrections and parameters
+  void setPolarisationOptionsEnabled(bool enable) override;
   void setReductionTypeEnabled(bool enable) override;
   void setIncludePartialBinsEnabled(bool enable) override;
   void setDetectorCorrectionEnabled(bool enable) override;

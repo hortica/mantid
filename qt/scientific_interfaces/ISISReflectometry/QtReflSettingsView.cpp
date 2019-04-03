@@ -51,14 +51,16 @@ void QtReflSettingsView::initLayout() {
           SLOT(requestExpDefaults()));
   connect(m_ui.getInstDefaultsButton, SIGNAL(clicked()), this,
           SLOT(requestInstDefaults()));
-  connect(m_ui.polCorrCheckBox, SIGNAL(clicked(bool)), this,
-          SLOT(setIsPolCorrEnabled(bool)));
+  connect(m_ui.expSettingsGroup, SIGNAL(clicked(bool)), this,
+          SLOT(setPolarisationOptionsEnabled(bool)));
   connect(m_ui.summationTypeComboBox, SIGNAL(currentIndexChanged(int)), this,
           SLOT(summationTypeChanged(int)));
   connect(m_ui.addPerAngleOptionsButton, SIGNAL(clicked()), this,
           SLOT(addPerAngleOptionsTableRow()));
   connect(m_ui.correctDetectorsCheckBox, SIGNAL(clicked(bool)), this,
           SLOT(setDetectorCorrectionEnabled(bool)));
+  connect(m_ui.polCorrCheckBox, SIGNAL(clicked(bool)), this,
+          SLOT(setIsPolCorrEnabled(bool)));
   connect(m_ui.floodCorComboBox, SIGNAL(currentIndexChanged(const QString &)),
           this, SLOT(floodCorComboBoxChanged(const QString &)));
 }
@@ -389,6 +391,22 @@ void QtReflSettingsView::setInstDefaults(InstrumentOptionDefaults defaults) {
 
 void QtReflSettingsView::setDetectorCorrectionEnabled(bool enabled) {
   m_ui.detectorCorrectionTypeComboBox->setEnabled(enabled);
+}
+
+/* Sets the enabled status of polarisation corrections and parameters
+ * @param enable :: [input] bool to enable options or not
+ */
+void QtReflSettingsView::setPolarisationOptionsEnabled(bool enable) {
+
+  if (enable && (!m_isPolCorrEnabled || !experimentSettingsEnabled()))
+    return;
+
+  m_ui.polCorrCheckBox->setEnabled(enable);
+
+  if (!enable) {
+    // Set polarisation corrections text to false when disabled
+    setChecked(*m_ui.polCorrCheckBox, false);
+  }
 }
 
 /** Add a new row to the transmission runs table

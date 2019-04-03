@@ -370,8 +370,12 @@ public:
     auto presenter = makeReflSettingsPresenter(&mockView);
 
     EXPECT_CALL(mockView, setIsPolCorrEnabled(false)).Times(Exactly(1));
+    EXPECT_CALL(mockView, setPolarisationOptionsEnabled(false))
+        .Times(Exactly(1));
     presenter.setInstrumentName("INTER");
     EXPECT_CALL(mockView, setIsPolCorrEnabled(true)).Times(Exactly(1));
+    EXPECT_CALL(mockView, setPolarisationOptionsEnabled(true))
+        .Times(Exactly(1));
     presenter.setInstrumentName("POLREF");
     TS_ASSERT(Mock::VerifyAndClearExpectations(&mockView));
   }
@@ -404,6 +408,8 @@ public:
 
     // Set instrument to 'POLREF'
     EXPECT_CALL(mockView, setIsPolCorrEnabled(true)).Times(Exactly(1));
+    EXPECT_CALL(mockView, setPolarisationOptionsEnabled(true))
+        .Times(Exactly(1));
     presenter.setInstrumentName("POLREF");
 
     auto fromIDFOrReductionAlg = ExperimentOptionDefaults();
@@ -434,6 +440,8 @@ public:
 
     // Set instrument to 'INTER'
     EXPECT_CALL(mockView, setIsPolCorrEnabled(false)).Times(Exactly(1));
+    EXPECT_CALL(mockView, setPolarisationOptionsEnabled(false))
+        .Times(Exactly(1));
 
     expectNoOptionLoadErrors(mockView);
 
