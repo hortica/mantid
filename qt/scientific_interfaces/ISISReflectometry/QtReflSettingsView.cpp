@@ -554,8 +554,8 @@ std::string QtReflSettingsView::getEndOverlap() const {
   return getText(*m_ui.endOverlapEdit);
 }
 
-/** Return selected polarisation corrections
- * @return :: selected polarisation corrections
+/** Return status of the polarisation corrections check box
+ * @return :: the status of the polarisation corrections check box
  */
 bool QtReflSettingsView::getPolarisationCorrections() const {
   return m_ui.polCorrCheckBox->isChecked();
