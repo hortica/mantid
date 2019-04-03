@@ -59,8 +59,6 @@ void QtReflSettingsView::initLayout() {
           SLOT(addPerAngleOptionsTableRow()));
   connect(m_ui.correctDetectorsCheckBox, SIGNAL(clicked(bool)), this,
           SLOT(setDetectorCorrectionEnabled(bool)));
-  connect(m_ui.polCorrCheckBox, SIGNAL(clicked(bool)), this,
-          SLOT(setIsPolCorrEnabled(bool)));
   connect(m_ui.floodCorComboBox, SIGNAL(currentIndexChanged(const QString &)),
           this, SLOT(floodCorComboBoxChanged(const QString &)));
 }
