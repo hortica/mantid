@@ -69,7 +69,6 @@ def single_reduction_for_batch(state, use_optimizations, output_mode, plot_resul
     # ------------------------------------------------------------------------------------------------------------------
     reduction_packages = get_reduction_packages(state, workspaces, monitors)
     if reduction_packages_require_splitting_for_event_slices(reduction_packages):
-        reduction_packages = split_reduction_packages_for_event_slice_packages(reduction_packages)
         # TODO change function order so we don't have to pass in lots of the same parameters to the two functions
         return single_reduction_for_event_slices(reduction_packages, workspace_to_name, workspace_to_monitor,
                                                  use_optimizations, save_can)
@@ -94,8 +93,8 @@ def single_reduction_for_event_slices(reduction_packages, workspace_to_name, wor
         # -----------------------------------
         # Set the properties on the algorithm
         # -----------------------------------
-        set_properties_for_reduction_algorithm(reduction_alg, reduction_package,
-                                               workspace_to_name, workspace_to_monitor)
+        set_properties_for_event_slice_reduction_algorithm(reduction_alg, reduction_package,
+                                                           workspace_to_name, workspace_to_monitor)
 
         # -----------------------------------
         #  Run the reduction
@@ -105,7 +104,6 @@ def single_reduction_for_event_slices(reduction_packages, workspace_to_name, wor
         # -----------------------------------------
         # Get the output group workspaces and split
         # -----------------------------------------
-        print("Execution done in batch")
         reduction_package.reduced_lab = get_workspace_from_algorithm(reduction_alg, "OutputWorkspaceLAB")
         reduction_package.reduced_hab = get_workspace_from_algorithm(reduction_alg, "OutputWorkspaceHAB")
         reduction_package.reduced_merged = get_workspace_from_algorithm(reduction_alg, "OutputWorkspaceMerged")
@@ -134,7 +132,6 @@ def single_reduction_for_event_slices(reduction_packages, workspace_to_name, wor
 
         reduction_package.out_scale_factor = reduction_alg.getProperty("OutScaleFactor").value
         reduction_package.out_shift_factor = reduction_alg.getProperty("OutShiftFactor").value
-        print("reduction package values taken")
 
     # --------------------------------
     # Perform output of all workspaces
@@ -1005,14 +1002,12 @@ def set_properties_for_reduction_algorithm(reduction_alg, reduction_package, wor
             _out_name += _suffix
             _out_name_base += _suffix
 
-        print("Property {} is {}".format(_property_name, _out_name))
         _reduction_alg.setProperty(_property_name, _out_name)
         setattr(_reduction_package, _attr_out_name, _out_name)
         setattr(_reduction_package, _atrr_out_name_base, _out_name_base)
 
     def _set_output_name_from_string(reduction_alg, reduction_package, algorithm_property_name, workspace_name,
                                      workspace_name_base, package_attribute_name, package_attribute_name_base):
-        print("Property {} is {}".format(algorithm_property_name, workspace_name))
         reduction_alg.setProperty(algorithm_property_name, workspace_name)
         setattr(reduction_package, package_attribute_name, workspace_name)
         setattr(reduction_package, package_attribute_name_base, workspace_name_base)
@@ -1182,7 +1177,6 @@ def get_workspace_from_algorithm(alg, output_property_name):
     :param output_property_name: the name of the output property.
     :return the workspace or None
     """
-    print("Getting workspace from algorithm")
     output_workspace_name = alg.getProperty(output_property_name).valueAsStr
 
     if not output_workspace_name:
