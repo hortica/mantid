@@ -23,7 +23,7 @@ Improvements
 - Improved support for thin-walled hollow cylinder shapes in :ref:`algm-MonteCarloAbsorption`
 - Support has been added for negative indexing of :ref:`WorkspaceGroups <WorkspaceGroup>`.
   Try :code:`ws_group[-1]` to get the last workspace in the WorkspaceGroup :code:`ws_group`.
-- :ref:`AbsorptionCorrection <algm-AbsorptionCorrection>` has a new property `ScatterFrom` which allows for calculating the correction for the other components (i.e. container and environment)
+- :ref:`AbsorptionCorrection <algm-AbsorptionCorrection>` has a new property `ScatterFrom` which allows for calculating the correction for the other components (i.e. container and environment). Also, a bug was fixed where the amount of the sample being scattered through was being under-reported for hollow objects.
 
 Removed
 #######
