@@ -42,6 +42,7 @@ set ( SRC_FILES
 	IndirectMolDyn.cpp
 	IndirectMoments.cpp
 	IndirectSassena.cpp
+	IndirectSettings.cpp
 	IndirectSettingsModel.cpp
 	IndirectSettingsPresenter.cpp
 	IndirectSettingsView.cpp
@@ -124,6 +125,7 @@ set ( INC_FILES
 	IndirectMolDyn.h
 	IndirectMoments.h
 	IndirectSassena.h
+	IndirectSettings.h
 	IndirectSettingsModel.h
 	IndirectSettingsPresenter.h
 	IndirectSettingsView.h
@@ -195,6 +197,7 @@ set ( MOC_FILES
     IndirectMolDyn.h
     IndirectMoments.h
     IndirectSassena.h
+    IndirectSettings.h
     IndirectSettingsModel.h
     IndirectSettingsPresenter.h
     IndirectSettingsView.h
@@ -245,6 +248,7 @@ set ( UI_FILES
    IndirectFitDataView.ui
    IndirectFitOutputOptions.ui
    IndirectFitPreviewPlot.ui
+   IndirectInterfaceSettings.ui
    IndirectLoadILL.ui
    IndirectMolDyn.ui
    IndirectMoments.ui
