@@ -418,6 +418,8 @@ public:
   /// always safe to assume it is just 2
   size_t numberOfAxis() const;
 
+  virtual bool isCommonLogAxis() const;
+
   /// Returns true if the workspace contains data in histogram form (as
   /// opposed to point-like)
   virtual bool isHistogramData() const;

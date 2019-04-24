@@ -876,6 +876,21 @@ void MatrixWorkspace::replaceAxis(const std::size_t &axisIndex,
   m_axes[axisIndex] = newAxis;
 }
 
+bool MatrixWorkspace::isCommonLogAxis() const {
+  if (!this->isCommonBins()) {
+    return false;
+  } else {
+    const auto &x0 = this->x(0);
+    double diff = x0[1] / x0[0];
+    for (size_t i = 1; i < x0.size() - 1; ++i) {
+      if (x0[i + 1] / x0[i] != diff) {
+        return false;
+      }
+    }
+    return true;
+  }
+}
+
 /**
  * Return the number of Axis stored by this workspace
  * @return int
