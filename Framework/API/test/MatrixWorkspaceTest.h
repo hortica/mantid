@@ -467,6 +467,7 @@ public:
   void testEmptyWorkspace() {
     WorkspaceTester ws;
     TS_ASSERT(ws.isCommonBins());
+    TS_ASSERT_EQUALS(ws.isCommonLogAxis(), false);
     TS_ASSERT_EQUALS(ws.blocksize(), 0);
     TS_ASSERT_EQUALS(ws.size(), 0);
   }
