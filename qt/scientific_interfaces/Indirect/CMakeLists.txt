@@ -122,6 +122,7 @@ set ( INC_FILES
 	IndirectFitPlotPresenter.h
 	IndirectFitPlotView.h
 	IndirectFittingModel.h
+	IndirectInterface.h
 	IndirectLoadILL.h
 	IndirectMolDyn.h
 	IndirectMoments.h
