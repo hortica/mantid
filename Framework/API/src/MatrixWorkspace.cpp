@@ -890,9 +890,17 @@ bool MatrixWorkspace::isCommonLogAxis() const {
     return false;
   }
 
+  // guard against all axis elements being equal
+  if (x0[1] == x0[0]) {
+    return false;
+  }
+
   double diff = x0[1] / x0[0];
   for (size_t i = 1; i < x0.size() - 1; ++i) {
+    // std::cout << "meow: " << x0[i+1] << " " << x0[i] << " " << x0[i+1]/x0[i]
+    // << " " << diff << std::endl;
     if (x0[i + 1] / x0[i] != diff) {
+      // std::cout << "meow: " << x0[i+1]/x0[i] << " " << diff << std::endl;
       return false;
     }
   }

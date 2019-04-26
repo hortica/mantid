@@ -23,6 +23,9 @@
 #include "MantidGeometry/Instrument/Detector.h"
 #include "MantidGeometry/Instrument/DetectorInfo.h"
 #include "MantidGeometry/Instrument/ReferenceFrame.h"
+#include "MantidHistogramData/Histogram.h"
+#include "MantidHistogramData/LinearGenerator.h"
+#include "MantidHistogramData/LogarithmicGenerator.h"
 #include "MantidIndexing/IndexInfo.h"
 #include "MantidKernel/TimeSeriesProperty.h"
 #include "MantidKernel/VMD.h"
@@ -477,6 +480,7 @@ public:
     ws.initialize(10, 10, 10);
     // After initialization, ws should contain a shared HistogramX.
     TS_ASSERT(ws.isCommonBins());
+    TS_ASSERT_EQUALS(ws.isCommonLogAxis(), false);
     // Modifying the value of one Spectrum will cause this Histogram to detach.
     // Since the value is identical, isCommonBins is still true.
     ws.mutableX(0)[0] = 1.;
@@ -484,6 +488,26 @@ public:
     // Once we change the the value, however, isCommonsBins should return false
     ws.mutableX(0)[0] = 2.;
     TS_ASSERT_EQUALS(ws.isCommonBins(), false);
+  }
+
+  void testIsCommonLogAxis() {
+    WorkspaceTester ws;
+    ws.initialize(10, 10, 10);
+    TS_ASSERT_EQUALS(ws.isCommonLogAxis(), false);
+
+    auto logAxis = Kernel::make_cow<Mantid::HistogramData::HistogramX>(
+        10, Mantid::HistogramData::LogarithmicGenerator(1., 0.1));
+    for (size_t i = 0; i < ws.getNumberHistograms(); ++i) {
+      ws.setSharedX(i, logAxis);
+    }
+    TS_ASSERT_EQUALS(ws.isCommonLogAxis(), true);
+
+    auto linearAxis = Kernel::make_cow<Mantid::HistogramData::HistogramX>(
+        10, Mantid::HistogramData::LinearGenerator(1., 0.1));
+    for (size_t i = 0; i < ws.getNumberHistograms(); ++i) {
+      ws.setSharedX(i, linearAxis);
+    }
+    TS_ASSERT_EQUALS(ws.isCommonLogAxis(), false);
   }
 
   void test_updateSpectraUsing() {
