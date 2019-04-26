@@ -38,6 +38,7 @@ set ( SRC_FILES
 	IndirectFitPlotPresenter.cpp
 	IndirectFitPlotView.cpp
 	IndirectFittingModel.cpp
+	IndirectInterface.cpp
 	IndirectLoadILL.cpp
 	IndirectMolDyn.cpp
 	IndirectMoments.cpp
@@ -193,6 +194,7 @@ set ( MOC_FILES
     IndirectFitOutputOptionsView.h
     IndirectFitPlotPresenter.h
     IndirectFitPlotView.h
+    IndirectInterface.h
     IndirectLoadILL.h
     IndirectMolDyn.h
     IndirectMoments.h
